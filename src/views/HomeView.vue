@@ -11,8 +11,10 @@
 <script lang="ts">
 import NavbarComponent from '@/components/share/NavbarComponent.vue';
 import CardComponent from '@/components/share/CardComponent.vue';
-import AuthenticationRepository from '@/logic/repositories/AuthenticationRepository';
+import AuthenticationRepository from '@/logic/repositories/Authentication/AuthenticationRepository';
+import RickAndMortyCharacterRepository from '@/logic/repositories/RickAndMorty/RickAndMortyCharacterRepository';
 import type { UserCredential } from '@/interface/types/Authentication/UserCredentialType';
+import type { CharactersResponse } from '@/interface/types/RickAndMorty/CharacterTypes'
 import { defineComponent } from 'vue';
 export default defineComponent({
   name:'HomeView',
@@ -22,7 +24,7 @@ export default defineComponent({
   },
   data(){
     return {
-      Characters: [],
+      Characters: {} as CharactersResponse,
       UsersCredentials: [] as UserCredential[],
       Token: '' as String
     }
@@ -32,7 +34,7 @@ export default defineComponent({
       try {
         const authRepo = new AuthenticationRepository();
         authRepo.GetUserToAuthenticate()
-        .then(Response => {
+        .then((Response:UserCredential[]) => {
           this.UsersCredentials = Response;
           if(Response.length > 0)   
             this.getToken(Response[0]);       
@@ -49,7 +51,16 @@ export default defineComponent({
           if(token.length > 1){
             this.Token = token;     
             localStorage.setItem('Token', String(token)); 
+            this.getAllCharacters();
           }              
+        });
+    },
+    async getAllCharacters(){
+      const rickCharacterRepo = new RickAndMortyCharacterRepository();
+      rickCharacterRepo.GetAllCharactersOfRickAndMorty()
+        .then((characters: CharactersResponse ) => {
+          if(characters)
+            this.Characters = characters;                         
         });
     }
   },
