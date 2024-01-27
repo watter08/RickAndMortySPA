@@ -3,24 +3,22 @@
     <NavbarComponent Title="Rick And Morty --> Characters" />
   </header>
   <main>
-    <div class="container pt-5">
-      <CardComponent />
-    </div>
+    <CardContainerComponent :Characters="Characters" />
   </main>
 </template>
 <script lang="ts">
+import { defineComponent } from 'vue';
 import NavbarComponent from '@/components/share/NavbarComponent.vue';
-import CardComponent from '@/components/share/CardComponent.vue';
 import AuthenticationRepository from '@/logic/repositories/Authentication/AuthenticationRepository';
 import RickAndMortyCharacterRepository from '@/logic/repositories/RickAndMorty/RickAndMortyCharacterRepository';
 import type { UserCredential } from '@/interface/types/Authentication/UserCredentialType';
-import type { CharactersResponse } from '@/interface/types/RickAndMorty/CharacterTypes'
-import { defineComponent } from 'vue';
+import type { CharactersResponse } from '@/interface/types/RickAndMorty/CharacterTypes';
+import CardContainerComponent from '@/components/Home/CardContainerComponent.vue';
 export default defineComponent({
   name:'HomeView',
   components:{
     NavbarComponent,
-    CardComponent
+    CardContainerComponent
   },
   data(){
     return {
@@ -60,7 +58,8 @@ export default defineComponent({
       rickCharacterRepo.GetAllCharactersOfRickAndMorty()
         .then((characters: CharactersResponse ) => {
           if(characters)
-            this.Characters = characters;                         
+            this.Characters = characters; 
+          console.log(characters)                        
         });
     }
   },

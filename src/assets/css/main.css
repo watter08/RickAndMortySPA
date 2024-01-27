@@ -1,2 +1,20 @@
 @import "./fonts.ttf";
-@import './buttons.css';
+
+:root {
+    --headlinesFont: "Jost", sans-serif;
+    --bodyFont: "Work Sans", sans-serif;
+    --wildWatermelon: #ff4f87;
+    --fuelYellow: #f0a035;
+    --textColor: #323232;
+    --bodyBg: #d6d6d6;
+    --white: #fff;
+    --black: #000;
+  }
+  
+  body {
+    background: var(--bodyBg);
+    font-family: var(--bodyFont);
+    color: var(--textColor);
+    line-height: 1.5;
+    max-width: 100vw;
+  }

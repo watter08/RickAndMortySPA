@@ -1,190 +1,138 @@
 <template>
-<div class="ft-recipe"> 
-  <div class="ft-recipe__thumb"><span id="close-modal"><i class="ion ion-md-close"></i></span>
-    <h3>Today's Featured Recipe</h3><img src="https://zippypaws.com/app/uploads/2018/05/strawberry-waffles-1024x668.jpg" alt="Strawberry Waffle"/>
+<div class="card" :key="`${Character.Name}_${Character.Id}`">
+  <div class="card-header">
+    <img :src="Character.Image" :alt="`${Character.Name}_${Character.Id}`"/>
   </div>
-  <div class="ft-recipe__content">
-    <header class="content__header">
-      <div class="row-wrapper">
-        <h2 class="recipe-title">Strawberry Waffle</h2>
-        <div class="user-rating"></div>
+  <div class="card-body">
+      <h5 class="name">{{ Character.Name }}</h5>
+    <div class="icons">
+      <div class="icon">
+      <IconCommunity /> 
+      <span class="number ps-2">{{ Character.Status }}</span>
+      <p><strong class="fs-7">Estatus:</strong></p>
       </div>
-      <ul class="recipe-details">
-        <li class="recipe-details-item time"><i class="ion ion-ios-clock-outline"></i><span class="value">20</span><span class="title">Minutes</span></li>
-        <li class="recipe-details-item ingredients"><i class="ion ion-ios-book-outline"></i><span class="value">5</span><span class="title">Ingredients</span></li>
-        <li class="recipe-details-item servings"><i class="ion ion-ios-person-outline"></i><span class="value">4-6</span><span class="title">Serving</span></li>
-      </ul>
-    </header>
-    <p class="description">
-       There’s no better way to celebrate May being National Strawberry Month than by sharing a sweet treat with your pup!!! Strawberries...</p>
-    <footer class="content__footer"><a href="#">View Recipe</a></footer>
+      <div class="icon">
+        <IconDocumentation />
+        <span class="number ps-2">{{ Character.Gender }}</span>
+        <p><strong class="fs-7">Genero:</strong></p>
+      </div>
+      <div class="icon">
+        <IconSupport />
+        <span class="number ps-2">{{ Character.Species }}</span>
+       <p><strong class="fs-7">Especie:</strong></p>
+      </div>
+    </div>
+    <div class="description">
+      <small>Este personaje tiene su Ubicacion de <strong>Origen</strong>: {{ Character.Origin.Name }}. 
+        Siendo su <strong>Ubicacion Actual</strong>: {{ Character.Location.Name }}.</small>
+    </div>
+    </div> 
+  <div class="pt-4 pb-5 text-center">
+    <button class="btn btn-rose">Conoce mas</button>
   </div>
 </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import IconCommunity from '@/components/icons/IconCommunity.vue';
+import IconDocumentation from '@/components/icons/IconDocumentation.vue';
+import IconSupport from '@/components/icons/IconSupport.vue';
+import type { Character } from '@/interface/types/RickAndMorty/CharacterTypes';
 export default defineComponent({
-  name:'CardComponent'
+  name:'CardComponent',
+  components:{
+    IconCommunity,
+    IconDocumentation,
+    IconSupport
+  },
+  props:{
+    Character:{
+    type:Object,
+    default:{} as Character
+  }
+  }
 });
 </script>
-<style >
-:root {
-  --headlinesFont: "Jost", sans-serif;
-  --bodyFont: "Work Sans", sans-serif;
-  --wildWatermelon: #ff4f87;
-  --fuelYellow: #f0a035;
-  --textColor: #323232;
-  --bodyBg: #d6d6d6;
-  --white: #fff;
-  --black: #000;
-}
+<style scoped>
 
-html {
-  box-sizing: border-box;
+.fs-7{
+  font-size: 14px;
 }
-
-body {
-  background: var(--bodyBg);
-  font-family: var(--bodyFont);
-  color: var(--textColor);
-  line-height: 1.5;
-}
-
-* {
-  box-sizing: inherit;
-}
-
-img {
-  vertical-align: text-bottom;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.ft-recipe {
-  width: 460px;
-  height: 654px;
-  background: var(--white);
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 88px 0 rgba(0, 0, 0, 0.1607843137);
-  overflow: hidden;
-  top: 50%;
-  right: 50%;
-  bottom: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
-.ft-recipe .ft-recipe__thumb {
-  position: relative;
-  height: 281px;
-  box-shadow: 0px 0px 130px 0 rgba(0, 0, 0, 0.38);
-}
-.ft-recipe .ft-recipe__thumb #close-modal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
-  background: #000;
-  color: var(--white);
-  text-align: center;
-  line-height: 36px;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 1;
-  transition: all 200ms ease;
-}
-.ft-recipe .ft-recipe__thumb #close-modal:hover {
-  background: transparent;
-  color: var(--black);
-}
-.ft-recipe .ft-recipe__thumb h3 {
-  text-align: center;
-  position: absolute;
+.card {
+  width: 400px;
   margin: 0;
-  width: 100%;
-  color: var(--white);
-  font-family: var(--headlinesFont);
-  font-size: 25px;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), transparent);
-  padding: 2.4rem 0 0;
+  padding:0;
 }
-.ft-recipe .ft-recipe__thumb img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: 50% 50%;
-     object-position: 50% 50%;
+
+.card-header,
+.card-header img{
+  width: 400px;
+    height: 350px;
+    padding: 0;
+    object-fit: cover;
+    object-position: top;
 }
-.ft-recipe .ft-recipe__content {
-  flex: 1;
-  padding: 0 2em 1em;
-}
-.ft-recipe .ft-recipe__content .content__header .row-wrapper {
+.header{
   display: flex;
-  padding: 0.55em 0 0.3em;
-  border-bottom: 1px solid #d8d8d8;
+  justify-content: center;
+  align-items: center;
 }
-.ft-recipe .ft-recipe__content .content__header .row-wrapper .recipe-title {
-  font-family: var(--headlinesFont);
+.header .name{
+  display: flex;
+  justify-content: left;
+  width: 50%;
+}
+.header .btn-rose{
+  width: 50%;
+}
+.card-body{
+  width: 400px;
+}
+.card-body .name {
   font-weight: 600;
+  margin: 5px 15px 20px 15px;
 }
-.ft-recipe .ft-recipe__content .content__header .recipe-details {
-  display: flex;
-  list-style: none;
-  padding: 1.4em 0 1em;
-  margin: 0;
-  justify-content: space-between;
+
+.icons {
+  display:flex;
+  flex-flow: wrap;
+  padding-top: 20px;
+  margin: 15px 15px 0 15px;
+  border-top: 1px solid #c8c8c8;
 }
-.ft-recipe .ft-recipe__content .content__header .recipe-details .recipe-details-item {
-  flex: 1;
+.icons .icon{
+  width: calc(33.33%);
 }
-.ft-recipe .ft-recipe__content .content__header .recipe-details .recipe-details-item i {
-  font-size: 30px;
-}
-.ft-recipe .ft-recipe__content .content__header .recipe-details .recipe-details-item .value {
+.icons .icon .number {
+  font-size: 15px;
   color: #ff4f87;
-  margin-left: 0.35em;
-  vertical-align: bottom;
-  font-size: 24px;
   font-weight: 600;
 }
-.ft-recipe .ft-recipe__content .content__header .recipe-details .recipe-details-item .title {
-  display: block;
-  margin-top: -4px;
-  font-family: var(--headlinesFont);
-  font-size: 21px;
-  font-weight: 300;
-}
-.ft-recipe .ft-recipe__content .description {
-  margin: 0.3em 0 1.8em;
-}
-.ft-recipe .ft-recipe__content .content__footer {
-  text-align: center;
-  margin: 0 3rem;
-}
-.ft-recipe .ft-recipe__content .content__footer a {
-  font-family: var(--headlinesFont);
-  display: inline-block;
-  background: var(--wildWatermelon);
-  padding: 0.45em 1em;
-  width: 100%;
-  text-align: center;
-  border-radius: 5px;
+
+.btn-rose{
+  background-color: #ff4f87;
   color: #fff;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  font-size: 17px;
-  transition: transform 250ms ease, box-shadow 250ms ease;
+  width: 80%;
+  max-width: 300px;
 }
-.ft-recipe .ft-recipe__content .content__footer a:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
+
+.btn-rose:hover{
+  background-color: #ff4f87;
+  color: #fff;
+} 
+::-webkit-scrollbar {
+  width: 5px; /* Grosor del scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff4f87; /* Color del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ecf0f1; /* Color de fondo del scrollbar */
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff4f87 #ecf0f1;
 }
 </style>
