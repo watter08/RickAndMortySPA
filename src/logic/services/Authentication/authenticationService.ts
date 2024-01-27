@@ -11,13 +11,15 @@ interface IAuthenticationService {
 export default class AuthenticationService implements IAuthenticationService {
 
     async GetUserToAuthenticate(): Promise<UserCredential[]> {
-            const Users: Result<UserCredential[]>  = await HttpClient.get('/api/User/GetUserForLogin');
-            return Users?.data ? Users?.data?.Data : [];
+            const response :any  = await HttpClient.get('/api/User/GetUserForLogin');
+            const Users : Result<UserCredential[]> = response?.data || { Data: [] };
+            return Users?.Data;
     }
 
     async GetToken(User:User): Promise<String> {
-        const TokenValue: Result<String>  = await HttpClient.post('/api/User/LogIn', JSON.stringify(User));
-        return TokenValue?.data ? TokenValue?.data?.Message : "";
+        const TokenValue: any = await HttpClient.post('/api/User/LogIn', JSON.stringify(User));
+        const result :Result<String> = TokenValue?.data || { Message: ""};
+        return result?.Message;
 }
 
 }

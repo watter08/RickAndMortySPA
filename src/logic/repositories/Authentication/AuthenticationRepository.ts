@@ -1,4 +1,4 @@
-import AuthenticationService from "../services/Authentication/authenticationService";
+import AuthenticationService from "../../services/Authentication/authenticationService";
 import type { UserCredential, User } from "@/interface/types/Authentication/UserCredentialType";
 
 export default class AuthenticationRepository {
