@@ -23,8 +23,8 @@
       </div>
     </div>
     <div class="description">
-      <small>Este personaje tiene su Ubicacion de <strong>Origen</strong>: {{ Character.Origin.Name }}. 
-        Siendo su <strong>Ubicacion Actual</strong>: {{ Character.Location.Name }}.</small>
+      <small>Este personaje tiene su Ubicacion de <strong>Origen</strong>: <span class="text-rose">{{ Character.Origin.Name }}</span>. 
+        Siendo su <strong>Ubicacion Actual</strong>: <span class="text-rose">{{ Character.Location.Name }}</span>.</small>
     </div>
     </div> 
   <div class="pt-4 pb-5 text-center">
@@ -134,5 +134,9 @@ export default defineComponent({
 * {
   scrollbar-width: thin;
   scrollbar-color: #ff4f87 #ecf0f1;
+}
+.text-rose{
+  color: #f12a34;
+  font-weight: bold;
 }
 </style>

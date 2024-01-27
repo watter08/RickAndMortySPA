@@ -47,7 +47,7 @@ export default defineComponent({
       authRepo.GetToken(User)
         .then((token:String ) => {
           if(token.length > 1){
-            this.Token = token;     
+            this.Token = token;              
             localStorage.setItem('Token', String(token)); 
             this.getAllCharacters();
           }              
@@ -64,6 +64,7 @@ export default defineComponent({
     }
   },
   created(){
+    localStorage.removeItem('Token');
     this.getUserToAuthenticate()
   }
 })
