@@ -25,7 +25,7 @@
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Status</button>
                     <ul class="dropdown-menu" v-if="StatusDrop?.length > 0">
                         <li v-for="(status,index) in StatusDrop" :key="`${status}_${index}`">
-                            <a class="dropdown-item" href="#" @click="handleSelection('Status',status)">{{status}}</a>
+                            <a class="dropdown-item" href="#" @click="handleSelection('Status',String(index))">{{status}}</a>
                         </li>
                     </ul>
                     <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="StatusDrop[SelectedForm?.Status]" />
@@ -36,7 +36,7 @@
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Genders</button>
                     <ul class="dropdown-menu" v-if="GendersDrop?.length > 0">
                         <li v-for="(gender,index) in GendersDrop" :key="`${gender}_${index}`">
-                            <a class="dropdown-item" href="#" @click="handleSelection('Gender',gender)">{{gender}}</a>
+                            <a class="dropdown-item" href="#" @click="handleSelection('Gender',String(index))">{{gender}}</a>
                         </li>
                     </ul>
                     <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="GendersDrop[SelectedForm?.Gender]" />
@@ -47,7 +47,7 @@
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Species</button>
                     <ul class="dropdown-menu" v-if="SpeciesDrop?.length > 0">
                         <li v-for="(specie,index) in SpeciesDrop" :key="`${specie}_${index}`">
-                            <a class="dropdown-item" href="#" @click="handleSelection('Specie',specie)">{{specie}}</a>
+                            <a class="dropdown-item" href="#" @click="handleSelection('Specie',String(index))">{{specie}}</a>
                         </li>
                     </ul>
                     <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="SpeciesDrop[SelectedForm?.Specie]" />
@@ -81,7 +81,7 @@ export default defineComponent({
         }
     },
     methods:{
-        handleSelection(key:String , value: String):void{
+        handleSelection(key:string , value: string):void{
             this.$emit('handlechangeinput', {key,value});
         },
         handleChange(event: Event): void {

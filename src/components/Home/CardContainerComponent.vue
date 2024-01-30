@@ -21,6 +21,11 @@ import type { CharactersResponse, CharacterAndColorInfo, Character } from '../..
 import type { SelectedCharacter, SelectedDropsCharacter} from '../../interface/types/RickAndMorty/SelectedCharacterType';
 import { ColorPalleteByStatus, ColorPalleteGender, ColorPalleteSpecie } from '@/logic/Const/RickAnrMortyMock';
 import CharacterFiltersComponent from './CharacterFiltersComponent.vue';
+
+type KeyAndValue = {
+    key:string;
+    value:string;
+}
 export default defineComponent({
     name:'CardContainerComponent',
     components:{
@@ -37,7 +42,7 @@ export default defineComponent({
         return{
             CharactersList: [] as CharacterAndColorInfo[],
             Drops:{Genders: [] as String[], Status: [] as String[], Species: [] as String[] } as SelectedDropsCharacter,
-            Selected:{ Status: 0, Genders: 0, Species: 0, Name: '' } as unknown as SelectedCharacter 
+            Selected:{ Status: 0, Gender: 0, Specie: 0, Name: '' } as unknown as SelectedCharacter 
         }
     },
     watch: {
@@ -59,17 +64,23 @@ export default defineComponent({
         }
     },
     methods:{
-        HandleChangeInput(key:String, value:String):void {
-            if(key === 'Name'){
-                this.Selected.Name = value;
-            }else {
-                Object.entries(this.Drops).forEach((keyName: String) => {
-                    if(key === keyName){
-                        let drop:String[] = this.Drops[String(keyName)];
-                    }
-                })
-            }            
+        HandleChangeInput(val: KeyAndValue):void {
+            switch(val.key){
+                case 'Name':
+                    this.Selected.Name = val.value;
+                break;
+                case 'Status':
+                    this.Selected.Status = val.value;
+                break;
+                case 'Specie':
+                    this.Selected.Specie = val.value;
+                break;
+                case 'Gender':
+                    this.Selected.Gender = val.value;
+                break;
+            } 
         }
+
     }
 })
 </script>
