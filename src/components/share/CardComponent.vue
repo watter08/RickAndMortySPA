@@ -1,30 +1,19 @@
 <template>
-<div class="card" :key="`${Character.Name}_${Character.Id}`">
+<div class="card" :key="`${Character.Info.Name}_${Character.Info.Id}`">
   <div class="card-header">
-    <img :src="Character.Image" :alt="`${Character.Name}_${Character.Id}`"/>
+    <img :src="Character.Info.Image" :alt="`${Character.Info.Name}_${Character.Info.Id}`"/>
   </div>
   <div class="card-body">
-      <h5 class="name">{{ Character.Name }}</h5>
-    <div class="icons">
-      <div class="icon">
-      <IconCommunity /> 
-      <span class="number ps-2">{{ Character.Status }}</span>
-      <p><strong class="fs-7">Estatus:</strong></p>
-      </div>
-      <div class="icon">
-        <IconDocumentation />
-        <span class="number ps-2">{{ Character.Gender }}</span>
-        <p><strong class="fs-7">Genero:</strong></p>
-      </div>
-      <div class="icon">
-        <IconSupport />
-        <span class="number ps-2">{{ Character.Species }}</span>
-       <p><strong class="fs-7">Especie:</strong></p>
-      </div>
-    </div>
-    <div class="description">
-      <small>Este personaje tiene su Ubicacion de <strong>Origen</strong>: <span class="text-rose">{{ Character.Origin.Name }}</span>. 
-        Siendo su <strong>Ubicacion Actual</strong>: <span class="text-rose">{{ Character.Location.Name }}</span>.</small>
+      <h5 class="name text-center">{{ Character.Info.Name }}</h5>
+    <div class="icons position-relative">
+      <IconCardStatusComponent 
+      :Status="Character.Info.Status" 
+      :StatusColor="Character.StatusClassColor"      
+      :Gender="Character.Info.Gender"
+      :GenderColor="Character.GenderClassColor" 
+      :Specie="Character.Info.Species"
+      :SpecieColor="Character.SpecieClassColor"
+       />
     </div>
     </div> 
   <div class="pt-4 pb-5 text-center">
@@ -34,21 +23,17 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import IconCommunity from '@/components/icons/IconCommunity.vue';
-import IconDocumentation from '@/components/icons/IconDocumentation.vue';
-import IconSupport from '@/components/icons/IconSupport.vue';
-import type { Character } from '@/interface/types/RickAndMorty/CharacterTypes';
+import type { CharacterAndColorInfo } from '@/interface/types/RickAndMorty/CharacterTypes';
+import IconCardStatusComponent from '../icons/IconCardStatusComponent.vue';
 export default defineComponent({
   name:'CardComponent',
   components:{
-    IconCommunity,
-    IconDocumentation,
-    IconSupport
-  },
+    IconCardStatusComponent
+},
   props:{
     Character:{
     type:Object,
-    default:{} as Character
+    default:{} as CharacterAndColorInfo
   }
   }
 });
@@ -80,7 +65,8 @@ export default defineComponent({
 .header .name{
   display: flex;
   justify-content: left;
-  width: 50%;
+  font-weight: 600;
+  
 }
 .header .btn-rose{
   width: 50%;
@@ -90,18 +76,17 @@ export default defineComponent({
 }
 .card-body .name {
   font-weight: 600;
-  margin: 5px 15px 20px 15px;
+  margin: 5px 15px 0 15px;
 }
 
 .icons {
   display:flex;
   flex-flow: wrap;
   padding-top: 20px;
-  margin: 15px 15px 0 15px;
-  border-top: 1px solid #c8c8c8;
+  /* margin: 15px 15px 0 15px; */
 }
-.icons .icon{
-  width: calc(33.33%);
+#social-platforms .btn-icon{
+  width: 300px;
 }
 .icons .icon .number {
   font-size: 15px;
@@ -114,6 +99,8 @@ export default defineComponent({
   color: #fff;
   width: 80%;
   max-width: 300px;
+  padding: 10px;
+  font-weight: 600;
 }
 
 .btn-rose:hover{

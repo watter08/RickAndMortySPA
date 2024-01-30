@@ -33,3 +33,10 @@ export type Location = {
     Url: String;
     Created: String;
   };
+
+ export type CharacterAndColorInfo = {
+    Info:Character;
+    StatusClassColor:String;
+    GenderClassColor:String;
+    SpecieClassColor:String;
+}

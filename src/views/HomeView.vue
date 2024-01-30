@@ -59,7 +59,6 @@ export default defineComponent({
         .then((characters: CharactersResponse ) => {
           if(characters)
             this.Characters = characters; 
-          console.log(characters)                        
         });
     }
   },
