@@ -17,7 +17,7 @@
     </div>
     </div> 
   <div class="pt-4 pb-5 text-center">
-    <button class="btn btn-rose">Conoce mas</button>
+    <button class="btn btn-rose">Learn more</button>
   </div>
 </div>
 </template>

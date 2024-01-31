@@ -4,6 +4,7 @@ import type { Result } from "@/interface/types/ResultType";
 
 interface IRickAndMortyCharactersService {
     GetAllCharactersOfRickAndMorty(): Promise<CharactersResponse>;
+    GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<CharactersResponse>;
 } 
 
 export default class RickAndMortyCharactersService implements IRickAndMortyCharactersService {
@@ -13,5 +14,10 @@ export default class RickAndMortyCharactersService implements IRickAndMortyChara
             const Users : Result<CharactersResponse> = response?.data || { Data: {} };
             return Users.Data;
     }
+    async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<CharactersResponse> {
+        const response :any = await HttpClient.get(`/api/RickAndMorty/MultipleCharacterById?CharacterIds=${FromTo}`);
+        const Users : Result<CharactersResponse> = response?.data || { Data: {} };
+        return Users.Data;
+}
 
 }

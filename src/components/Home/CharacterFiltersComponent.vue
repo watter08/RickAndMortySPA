@@ -1,17 +1,17 @@
 <template>
-    <div class="row pt-5 ps-4 pe-4">
-        <div class="card">
-            <div class="card-header">
-                <h4>Filtro de Busqueda</h4>
+    <div>
+        <div class="card position-relative">
+            <div class="card-header row">
+                <h4>{{ Title }}</h4>
             </div>
-            <div class="card-body row">
+            <div class="card-body row pt-5 mt-5">
                 <div class="col-md-6">
                    <div class="input-group mb-3">
                       <span class="input-group-text" id="basic-addon1">Name</span>
                       <input 
                       type="text" 
                       class="form-control" 
-                      placeholder="Name" 
+                      placeholder="John Doe" 
                       name="Name"
                       aria-label="Username" 
                       aria-describedby="basic-addon1" 
@@ -28,7 +28,7 @@
                             <a class="dropdown-item" href="#" @click="handleSelection('Status',String(index))">{{status}}</a>
                         </li>
                     </ul>
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="StatusDrop[SelectedForm?.Status]" />
+                    <input type="text" disabled class="form-control" aria-label="Text input with dropdown button" :value="StatusDrop[SelectedForm?.Status]" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -39,7 +39,7 @@
                             <a class="dropdown-item" href="#" @click="handleSelection('Gender',String(index))">{{gender}}</a>
                         </li>
                     </ul>
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="GendersDrop[SelectedForm?.Gender]" />
+                    <input type="text" disabled class="form-control" aria-label="Text input with dropdown button" :value="GendersDrop[SelectedForm?.Gender]" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -50,7 +50,7 @@
                             <a class="dropdown-item" href="#" @click="handleSelection('Specie',String(index))">{{specie}}</a>
                         </li>
                     </ul>
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" :value="SpeciesDrop[SelectedForm?.Specie]" />
+                    <input type="text" disabled class="form-control" aria-label="Text input with dropdown button" :value="SpeciesDrop[SelectedForm?.Specie]" />
                     </div>
                 </div>
             </div>
@@ -63,6 +63,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name:'CharacterFiltersComponent',
     props:{
+        Title:{
+            type:String,
+            default:'Filters' as String
+        },
         SpeciesDrop:{
             type:Array<String>,
             default:[] as String[]
@@ -91,3 +95,24 @@ export default defineComponent({
     }
 });
 </script>
+<style lang="css" scoped>
+.card{
+    border: 2px solid #ff4f87 !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.card-header {
+    position: absolute;
+    width: 90%;
+    transform: translate(6.5%, -40%);
+    background-color: #ff4f87;
+    color:#fff;
+    font-weight: 600;
+}
+.btn-outline-secondary,
+.input-group-text {
+    border: 1.2px solid #ff4f87 !important;
+    background-color: #ffffff;
+    color:#ff4f87;
+}
+
+</style>

@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-dark bg-dark ">
+<nav class="navbar navbar-dark">
   <div class="container-fluid">
     <a class="navbar-brand mb-0 h1 ps-4" :href="Link">{{ Title }}</a>
   </div>
@@ -21,3 +21,9 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="css" scoped>
+.navbar{
+  height: 80px;
+  background-color: #192231;
+}
+</style>

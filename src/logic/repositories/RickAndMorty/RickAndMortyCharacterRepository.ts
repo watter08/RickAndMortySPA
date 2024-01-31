@@ -16,4 +16,12 @@ export default class RickAndMortyCharacterRepository {
       throw error; 
     }
   }
+  async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<CharactersResponse> {
+    try {
+      return await this._rickAndMortyCharacterService.GetMultipleCharactersOfRickAndMorty(FromTo); 
+    } catch (error) {
+      console.error(error);
+      throw error; 
+    }
+  }
 }
