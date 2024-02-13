@@ -13,6 +13,8 @@
     </h6>
 
     <div class="CardContainer mx-auto pt-5 pb-5">
+        <LoadingComponent v-if="Characters?.Results?.length === 0"
+        class="row mx-auto my-auto" />
         <CardComponent 
         v-for="(item , index) in CharactersList" 
         :key="index" 
@@ -33,6 +35,7 @@ import { defineComponent } from 'vue';
 import CharacterFiltersComponent from './CharacterFiltersComponent.vue';
 import RickAndMortyModal from './RickAndMortyModal.vue';
 import  CardComponent from '../share/CardComponent.vue';
+import LoadingComponent from '../share/LoadingComponent.vue';
 import type { CharactersResponse, CharacterAndColorInfo, Character } from '../../interface/types/RickAndMorty/CharacterTypes';
 import type { SelectedCharacter, SelectedDropsCharacter} from '../../interface/types/RickAndMorty/SelectedCharacterType';
 import { ColorPalleteByStatus, ColorPalleteGender, ColorPalleteSpecie } from '@/logic/Const/RickAnrMortyMock';
@@ -56,6 +59,7 @@ export default defineComponent({
     },
     data(){
         return{
+            IsLoading: false as Boolean,
             ALL:'All' as String,
             CharactersList: [] as CharacterAndColorInfo[],
             Drops:{Genders: [] as String[], Status: [] as String[], Species: [] as String[] } as SelectedDropsCharacter,
