@@ -122,8 +122,7 @@ export default defineComponent({
                 }));
         },
         OpenModal(character:Character){
-            this.$emit('setcharacter', character);
-            // $('#RickAndMortyModal').modal('show');
+            this.SelectedCharacter = character;
         }
 
     }
