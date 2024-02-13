@@ -17,7 +17,11 @@
     </div>
     </div> 
   <div class="pt-4 pb-5 text-center">
-    <button class="btn btn-rose" @click="openModal">Learn more</button>
+    <button 
+    class="btn btn-rose"
+    data-bs-toggle="modal" 
+    :data-bs-target="'#'+ModalId"
+    @click="openModal">Learn more</button>
   </div>
 </div>
 </template>
@@ -32,6 +36,10 @@ export default defineComponent({
     IconCardStatusComponent
 },
   props:{
+    ModalId:{
+      type:String,
+      default:''
+    },
     Character:{
     type:Object,
     default:{} as CharacterAndColorInfo

@@ -16,6 +16,7 @@
         <LoadingComponent v-if="CharactersList?.length === 0"
         class="row mx-auto my-auto" />
         <CardComponent 
+        ModalId="RickAndMortyModal"
         v-for="(item , index) in CharactersList" 
         :key="index" 
         :Character="item"
