@@ -7,16 +7,16 @@
             <div class="list-group w-100">
                 <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Origing: {{ Character?.Info?.Origin?.Name }}</h5>
-                    <small>{{Character?.Info?.Status}}</small>
+                    <h5 class="mb-1"><strong>Origing:</strong> <small>{{ Character?.Info?.Origin?.Name }}</small></h5>
+                    <small><strong>{{Character?.Info?.Status}}</strong></small>
                     </div>
-                    <p class="mb-1">Location: {{ Character?.Info?.Location?.Name }}</p>
-                    <small>Species: {{ Character?.Info?.Species }}</small>
+                    <p class="mb-1"><strong>Location:</strong> {{ Character?.Info?.Location?.Name }}</p>
+                    <small><strong>Species:</strong> {{ Character?.Info?.Species }}</small>
                 </a>
            </div>           
         </div>
         <div class="RickBody">
-            
+
         </div>
     </ModalComponent>
 </template>
