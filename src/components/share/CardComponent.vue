@@ -17,7 +17,11 @@
     </div>
     </div> 
   <div class="pt-4 pb-5 text-center">
-    <button class="btn btn-rose">Learn more</button>
+    <button 
+    class="btn btn-rose"
+    data-bs-toggle="modal" 
+    :data-bs-target="'#'+ModalId"
+    @click="openModal">Learn more</button>
   </div>
 </div>
 </template>
@@ -25,16 +29,26 @@
 import { defineComponent } from 'vue';
 import type { CharacterAndColorInfo } from '@/interface/types/RickAndMorty/CharacterTypes';
 import IconCardStatusComponent from '../icons/IconCardStatusComponent.vue';
+
 export default defineComponent({
   name:'CardComponent',
   components:{
     IconCardStatusComponent
 },
   props:{
+    ModalId:{
+      type:String,
+      default:''
+    },
     Character:{
     type:Object,
     default:{} as CharacterAndColorInfo
   }
+  },
+  methods:{
+    openModal(){
+      this.$emit('openmodal', this.Character)
+    }
   }
 });
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="row max-container mx-auto pt-5">
-        <CharacterFiltersComponent 
+    <CharacterFiltersComponent 
      :StatusDrop="Drops.Status"
      :SpeciesDrop="Drops.Species"
      :GendersDrop="Drops.Genders"
@@ -8,28 +8,38 @@
      @handlechangeinput="HandleChangeInput"
     />
     <h6 v-if="Characters?.Results?.length > 0" class="text-end pt-4">
-        <strong>Number of Character : </strong><span class="text-rose">{{ Characters.Results.length }}</span>
+        <small><strong>Characters : </strong><span class="text-rose">{{ Characters.Results.length }}</span></small>&nbsp; &nbsp; &nbsp; 
+        <small v-if="CharactersList?.length > 0"><strong>Filtered: </strong><span class="text-rose">{{ CharactersList.length }}</span></small>
     </h6>
-    </div>
 
     <div class="CardContainer mx-auto pt-5 pb-5">
-        <LoadingComponent v-if="Characters?.Results?.length === 0"
+        <LoadingComponent v-if="CharactersList?.length === 0"
         class="row mx-auto my-auto" />
         <CardComponent 
+        ModalId="RickAndMortyModal"
         v-for="(item , index) in CharactersList" 
         :key="index" 
         :Character="item"
+        @openmodal="OpenModal"
         />
+
+        <RickAndMortyModal 
+        ModalId="RickAndMortyModal"
+        Title="Rick And Morty"
+        :Character="SelectedCharacter"
+        />
+    </div>    
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import CharacterFiltersComponent from './CharacterFiltersComponent.vue';
+import RickAndMortyModal from './RickAndMortyModal.vue';
 import  CardComponent from '../share/CardComponent.vue';
 import LoadingComponent from '../share/LoadingComponent.vue';
 import type { CharactersResponse, CharacterAndColorInfo, Character } from '../../interface/types/RickAndMorty/CharacterTypes';
 import type { SelectedCharacter, SelectedDropsCharacter} from '../../interface/types/RickAndMorty/SelectedCharacterType';
 import { ColorPalleteByStatus, ColorPalleteGender, ColorPalleteSpecie } from '@/logic/Const/RickAnrMortyMock';
-import CharacterFiltersComponent from './CharacterFiltersComponent.vue';
 
 type KeyAndValue = {
     key:string;
@@ -40,6 +50,7 @@ export default defineComponent({
     components:{
     CardComponent,
     CharacterFiltersComponent,
+    RickAndMortyModal,
     LoadingComponent
 },
     props:{
@@ -54,7 +65,8 @@ export default defineComponent({
             ALL:'All' as String,
             CharactersList: [] as CharacterAndColorInfo[],
             Drops:{Genders: [] as String[], Status: [] as String[], Species: [] as String[] } as SelectedDropsCharacter,
-            Selected:{ Status: 0, Gender: 0, Specie: 0, Name: '' } as unknown as SelectedCharacter 
+            Selected:{ Status: 0, Gender: 0, Specie: 0, Name: '' } as unknown as SelectedCharacter ,
+            SelectedCharacter:{} as Character
         }
     },
     watch: {
@@ -108,6 +120,9 @@ export default defineComponent({
                     GenderClassColor: ColorPalleteGender[String(character.Gender)] || '',
                     SpecieClassColor: ColorPalleteSpecie[String(character.Species)] || ''
                 }));
+        },
+        OpenModal(character:Character){
+            this.SelectedCharacter = character;
         }
 
     }
