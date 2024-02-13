@@ -1,6 +1,6 @@
 <template>
     <div class="row max-container mx-auto pt-5">
-        <CharacterFiltersComponent 
+    <CharacterFiltersComponent 
      :StatusDrop="Drops.Status"
      :SpeciesDrop="Drops.Species"
      :GendersDrop="Drops.Genders"
@@ -13,7 +13,7 @@
     </h6>
 
     <div class="CardContainer mx-auto pt-5 pb-5">
-        <LoadingComponent v-if="Characters?.Results?.length === 0"
+        <LoadingComponent v-if="CharactersList?.length === 0"
         class="row mx-auto my-auto" />
         <CardComponent 
         v-for="(item , index) in CharactersList" 
@@ -49,7 +49,8 @@ export default defineComponent({
     components:{
     CardComponent,
     CharacterFiltersComponent,
-    RickAndMortyModal
+    RickAndMortyModal,
+    LoadingComponent
 },
     props:{
         Characters:{
@@ -121,7 +122,7 @@ export default defineComponent({
         },
         OpenModal(character:Character){
             this.$emit('setcharacter', character);
-            $('#RickAndMortyModal').modal('show');
+            // $('#RickAndMortyModal').modal('show');
         }
 
     }
