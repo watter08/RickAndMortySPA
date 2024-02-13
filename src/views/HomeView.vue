@@ -12,7 +12,7 @@ import NavbarComponent from '@/components/share/NavbarComponent.vue';
 import AuthenticationRepository from '@/logic/repositories/Authentication/AuthenticationRepository';
 import RickAndMortyCharacterRepository from '@/logic/repositories/RickAndMorty/RickAndMortyCharacterRepository';
 import type { UserCredential } from '@/interface/types/Authentication/UserCredentialType';
-import type { CharactersResponse } from '@/interface/types/RickAndMorty/CharacterTypes';
+import type { CharactersResponse, Character } from '@/interface/types/RickAndMorty/CharacterTypes';
 import CardContainerComponent from '@/components/Home/CardContainerComponent.vue';
 export default defineComponent({
   name:'HomeView',
@@ -55,12 +55,22 @@ export default defineComponent({
     },
     async getAllCharacters(){
       const rickCharacterRepo = new RickAndMortyCharacterRepository();
-      rickCharacterRepo.GetAllCharactersOfRickAndMorty()
-        .then((characters: CharactersResponse ) => {
-          if(characters)
-            this.Characters = characters; 
+      const routesArray:string = this.getRouteCharacterNumber(1,300);
+      rickCharacterRepo.GetMultipleCharactersOfRickAndMorty(routesArray)
+        .then((characters: Character[] ) => {
+          if(characters){
+             this.Characters = {
+              Info: { Count: characters.length,  Next: '2', Pages: 1,  Prev: '1' },
+              Results: characters
+             }
+          }            
         });
-    }
+    },
+    getRouteCharacterNumber(from: number, to: number): string {
+    if (from > to || from === 0 || to === 0) return '1,2';
+    const routeNumbers = Array.from({ length: to - from + 1 }, (_, index) => from + index);
+    return routeNumbers.join(',');
+}
   },
   created(){
     localStorage.removeItem('Token');

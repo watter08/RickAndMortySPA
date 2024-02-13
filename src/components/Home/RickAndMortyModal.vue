@@ -1,6 +1,6 @@
 <template>
-    <ModalComponent Title="Character Details" :ModalId="Character?.Name">
-        <h3>Hello World</h3>
+    <ModalComponent Title="Character Details" :ModalId="ModalId">
+        <h3>{{Title}}</h3>
     </ModalComponent>
 </template>
 <script lang="ts">
@@ -17,9 +17,18 @@ export default defineComponent({
             type: Object,
             default:{} as Character
         },
+        Title: {
+            type: String,
+            default:'modalComponent' as String
+        },
         ModalId: {
             type: String,
-            default:'' as String
+            default:'modalComponent' as String
+        }
+    },
+    methods:{
+        closeModal(){
+            
         }
     }
 })

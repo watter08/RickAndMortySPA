@@ -1,5 +1,5 @@
 import RickAndMortyCharacterService from '../../services/RickAndMorty/RickAndMortyCharacterService';
-import type { CharactersResponse } from '../../../interface/types/RickAndMorty/CharacterTypes'
+import type { CharactersResponse, Character } from '../../../interface/types/RickAndMorty/CharacterTypes'
 
 export default class RickAndMortyCharacterRepository {
   private _rickAndMortyCharacterService: RickAndMortyCharacterService; 
@@ -16,7 +16,7 @@ export default class RickAndMortyCharacterRepository {
       throw error; 
     }
   }
-  async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<CharactersResponse> {
+  async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<Character[]> {
     try {
       return await this._rickAndMortyCharacterService.GetMultipleCharactersOfRickAndMorty(FromTo); 
     } catch (error) {

@@ -1,6 +1,6 @@
 export type CharactersResponse = {
     Info: Info;
-    Results: Character;
+    Results: Character[];
 }
 export type Info = {
     Count: Number;
