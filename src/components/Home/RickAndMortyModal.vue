@@ -1,7 +1,7 @@
 <template>
     <ModalComponent :Title="Character?.Info?.Name" :ModalId="ModalId">
         <div class="RickHeader">
-            <div>
+            <div class="img">
                 <img :src="Character?.Info?.Image" :alt="Character?.Info?.Name" />
                 <div class="list-card">
                     <div class="carditem">
@@ -92,12 +92,15 @@ export default defineComponent({
 <style lang="css" scoped>
     .RickHeader{
         display: flex;   
-        flex: 30% 70%;
         gap:20px;    
     }
+ .img{
+    width: calc(40%);
+ }
+ .list-group{
+    width: calc(60%);
+ }
  img{
-    width: 300px;
-    height: 300px;
     border-radius: 20px;
  }
 
@@ -131,5 +134,20 @@ export default defineComponent({
  .carditem .is{
     flex: 70%;
     text-align: right;
+ }
+
+ @media only screen and (max-width: 991px) {
+    .RickHeader{
+    flex-flow: wrap;
+ }
+    .img{
+    width: calc(100%);
+ }
+ img {
+    width: -webkit-fill-available;
+}
+ .list-group{
+    width: calc(100%);
+ }
  }
 </style>
