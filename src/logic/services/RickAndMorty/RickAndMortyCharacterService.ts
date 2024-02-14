@@ -1,6 +1,7 @@
 import type { Character, CharactersResponse } from "@/interface/types/RickAndMorty/CharacterTypes";
 import HttpClient from "../../httpClient";
 import type { Result } from "@/interface/types/ResultType";
+import { RickAndMortyMultipleCharacters } from "@/logic/Const/RickAnrMortyMock";
 
 interface IRickAndMortyCharactersService {
     GetAllCharactersOfRickAndMorty(): Promise<CharactersResponse>;
@@ -15,9 +16,10 @@ export default class RickAndMortyCharactersService implements IRickAndMortyChara
             return Users.Data;
     }
     async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<Character[]> {
-        const response :any = await HttpClient.get(`/api/RickAndMorty/MultipleCharacterById?CharacterIds=${FromTo}`);
-        const Users : Result<Character[]> = response?.data || { Data: {} };        
-        return Users.Data;
+        // const response :any = await HttpClient.get(`/api/RickAndMorty/MultipleCharacterById?CharacterIds=${FromTo}`);
+        // const Users : Result<Character[]> = response?.data || { Data: {} };        
+        // return Users.Data;
+        return RickAndMortyMultipleCharacters;
 }
 
 }
