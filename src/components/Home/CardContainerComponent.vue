@@ -66,7 +66,7 @@ export default defineComponent({
             CharactersList: [] as CharacterAndColorInfo[],
             Drops:{Genders: [] as String[], Status: [] as String[], Species: [] as String[] } as SelectedDropsCharacter,
             Selected:{ Status: 0, Gender: 0, Specie: 0, Name: '' } as unknown as SelectedCharacter ,
-            SelectedCharacter:{} as Character
+            SelectedCharacter:{} as CharacterAndColorInfo
         }
     },
     watch: {
@@ -121,7 +121,7 @@ export default defineComponent({
                     SpecieClassColor: ColorPalleteSpecie[String(character.Species)] || ''
                 }));
         },
-        OpenModal(character:Character){
+        OpenModal(character:CharacterAndColorInfo){
             this.SelectedCharacter = character;
         }
 

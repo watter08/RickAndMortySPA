@@ -16,7 +16,7 @@ export default class RickAndMortyCharactersService implements IRickAndMortyChara
     }
     async GetMultipleCharactersOfRickAndMorty(FromTo: string): Promise<Character[]> {
         const response :any = await HttpClient.get(`/api/RickAndMorty/MultipleCharacterById?CharacterIds=${FromTo}`);
-        const Users : Result<Character[]> = response?.data || { Data: {} };
+        const Users : Result<Character[]> = response?.data || { Data: {} };        
         return Users.Data;
 }
 
