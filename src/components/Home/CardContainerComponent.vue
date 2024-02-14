@@ -146,4 +146,9 @@ export default defineComponent({
     font-weight: 800;
     font-size: 1.2rem;
 }
+@media only screen and (max-width: 991px){
+    .CardContainer {
+        justify-content: space-around;
+    }
+}
 </style>
