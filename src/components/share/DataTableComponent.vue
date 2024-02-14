@@ -159,7 +159,6 @@
         const start = (this.curPage - 1) * this.pageSize;
         const endPage = this.curPage * this.pageSize;
         this.pages = this.tableData.filter((row, index) => index >= start && index < endPage);
-        console.log(this.pages)
         this.getVisiblePages();
       },
       search() {
