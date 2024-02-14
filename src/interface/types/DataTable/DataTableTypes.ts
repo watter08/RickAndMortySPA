@@ -4,8 +4,8 @@ export  type HeaderItem = {
   }
 
 export type ActionsButtons = {
-  title: String;
+  title: string;
   action: Function;
-  color: String;
-  icon:String;
+  color: string;
+  icon:string;
 }
