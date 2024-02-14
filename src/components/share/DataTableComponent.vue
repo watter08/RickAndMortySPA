@@ -1,8 +1,8 @@
-<!-- <template>
+<template>
     <div>
       <div class="row" v-if="isFiltered">
         <div class="offset-md-8 col-md-4">
-          <div class="form-group pr-3">
+          <div class="form-group pr-3 pb-3">
             <input v-model="filterText" @keyup="search" type="text" class="form-control me-auto" placeholder="Filtrar Consulta">
           </div>
         </div>
@@ -11,15 +11,15 @@
         <table class="table table-striped">
           <thead>
             <tr :class="'header ' + tableDesign">
-              <th scope="col" class="text-center" v-if="actionsButtons.length > 0">Acción</th>
-              <th scope="col" v-for="item in headerThead" :key="item.key">{{ item.value }}</th>
+              <th scope="col" class="text-center" v-if="(actionsButtons && actionsButtons?.length > 0)">Acción</th>
+              <th scope="col" v-for="item in (headerThead as HeaderItem[])" :key="item.key">{{ item.value }}</th>
             </tr>
           </thead>
           <tbody v-if="newData.length > 0">
             <tr v-for="(item, index) in pages" :key="index">
-              <td class="td-btn" v-if="actionsButtons.length > 0">
+              <td class="td-btn" v-if="(actionsButtons && actionsButtons?.length > 0)">
                 <button
-                  v-for="(action, indx) in actionsButtons"
+                  v-for="(action, indx) in (actionsButtons as ActionsButtons[])"
                   :key="'action_' + indx"
                   data-toggle="tooltip"
                   data-placement="top"
@@ -39,7 +39,7 @@
             <li class="page-item">
               <button type="button" class="page-link" @click="previousPage"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
             </li>
-            <li class="page-item" v-if="data.length > 0">
+            <li class="page-item" v-if="(data && data.length > 0)">
               <button v-for="pageNumber in countPages" type="button" :class="'page-link ' + (curPage === pageNumber ? 'active' : '')" :key="pageNumber"
                 @click="setCurrenPage(pageNumber)">{{ pageNumber }}</button>
             </li>
@@ -58,17 +58,30 @@
   <script lang="ts">
   import { defineComponent } from 'vue';
   import { v4 as uuid } from 'uuid';
-  
+  import type { HeaderItem, ActionsButtons } from '@/interface/types/DataTable/DataTableTypes.ts';
+
   export default defineComponent({
     name: 'DataTableComponent',
     props: {
-      data: Array,
-      headerThead: Array,
-      pageSize: Number,
-      isFiltered: Boolean,
+      data: {
+        type: Array,
+        default: () => [] as any
+      },
+      headerThead: {
+        type: Array,
+        default: () => [] as HeaderItem[]
+      },
+      pageSize: {
+        type: Number,
+        default:5
+      },
+      isFiltered: {
+        type: Boolean,
+        default:false
+      },
       actionsButtons: {
         type: Array,
-        default: () => []
+        default: () => [] as ActionsButtons[]
       },
       tableDesign: {
         type: String,
@@ -81,11 +94,11 @@
     },
     data: () => ({
       countPages: [] as number[],
-      curPage: 1,
+      curPage: 1 as number,
       pages: [] as any[],
       tableData: [] as any[],
-      minCount: 1,
-      filterText: '',
+      minCount: 1 as number,
+      filterText: '' as string,
       newData: [] as any[]
     }),
     created() {
@@ -111,33 +124,26 @@
       },
       setCurrenPage(pageNumber: number) {
         if (!(this.newData && this.newData.length > 0)) return;
-        const maxCount = this.newData.length === this.minCount ? this.minCount : Math.ceil(this.newData.length / this.pageSize);
-        const start = (() => {
-          let start = Math.max(pageNumber - 5, 1);
-          if ((pageNumber + 5) >= maxCount)
-            start = (maxCount - 5) <= this.minCount ? 1 : maxCount - 5;
-          else if ((pageNumber - 5) <= this.minCount) start = 1;
-          else start = pageNumber;
-          return start;
-        })();
-  
         this.curPage = pageNumber;
         this.renderTable();
       },
       mapData() {
-        if (!this.newData || !this.newData.length > 0) return;
+        if (!this.newData || (this.newData && this.newData.length <= 0)) return;
         const newData = this.newData.map((items: any) => {
           const item: any = {};
-          this.headerThead.forEach(({ key }: any) => {
+          if(this.headerThead && this.headerThead?.length > 0){
+            this.headerThead.forEach(({ key }: any) => {
             item[key] = items[key];
           });
           item.GuId = items.GuId;
           return item;
+          } 
+          return []          
         });
         this.tableData = newData.slice();
       },
       getId() {
-        return uuid()();
+        return uuid();
       },
       previousPage() {
         if (this.curPage > 1) this.curPage--;
@@ -153,17 +159,21 @@
         const start = (this.curPage - 1) * this.pageSize;
         const endPage = this.curPage * this.pageSize;
         this.pages = this.tableData.filter((row, index) => index >= start && index < endPage);
+        console.log(this.pages)
         this.getVisiblePages();
       },
       search() {
         const value = this.filterText.toLowerCase();
         const newData = this.newData.map((items: any) => {
           const item: any = {};
-          this.headerThead.forEach(({ key }: any) => {
+          if(this.headerThead && this.headerThead?.length > 0){
+            this.headerThead.forEach(({ key }: any) => {
             item[key] = items[key];
           });
           item.GuId = items.GuId;
           return item;
+          }
+          return []
         });
   
         this.tableData = newData.filter((item: any) => {
@@ -186,7 +196,7 @@
         if (newVal) {
           this.newData = newVal.map((dats: any) => ({
             ...dats,
-            GuId: uuid()()
+            GuId: uuid()
           }));
         }
       },
@@ -240,7 +250,8 @@
     border-top: none;
   }
   
-  .header.with {
+  .header.with,
+  .header.with th {
     background: #212529;
     color: #fff;
     border-top: none;
@@ -302,4 +313,4 @@
     font-size: 14px !important;
   }
   </style>
-   -->
+  

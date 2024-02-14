@@ -74,7 +74,7 @@ export default defineComponent({
   },
   created(){
     localStorage.removeItem('Token');
-    this.getUserToAuthenticate()
+    this.getUserToAuthenticate();
   }
 })
 
